@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <title>Document</title>
+  </head>
+
+  <style>
+    body {
+      background-color: black;
+      padding: 0;
+      margin: 0;
+    }
+    audio {
+      opacity: 0;
+      display: none;
+    }
+    .container {
+      padding: 0px 40px;
+      height: 100vh;
+      flex-direction: column;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: black;
+    }
+
+    .container > div {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+
+    #greet {
+      display: none;
+    }
+
+    #img {
+      display: none;
+    }
+
+    #playButton {
+      width: 20%;
+      min-width: 300px;
+      height: 10%;
+      border: none;
+      font-family: "Poppins", Arial, Helvetica, sans-serif;
+      font-size: min(16px, 20px);
+      outline: none;
+      font-weight: bold;
+      cursor: pointer;
+      /* display: none; */
+      border-radius: 45px;
+      transition: all ease-in 300ms;
+    }
+
+    #playButton:hover {
+      background-color: black;
+      color: white;
+    }
+
+    #lyrics,
+    h1 {
+      font-size: 21px;
+      text-align: center;
+      font-family: "Poppins", Helvetica, sans-serif;
+      color: white;
+    }
+
+    #img {
+      object-fit: cover;
+      width: 100%;
+      height: 40%;
+      max-width: 400px;
+      max-height: 400px;
+      min-width: 320px;
+      min-height: 320px;
+      border: solid rgba(255, 255, 255, 0.865) 5px;
+      border-radius: 10px;
+    }
+  </style>
+  <body>
+    <div class="container">
+      <button id="playButton">Click here, Baby<3</button>
+      <audio id="myAudio" controls loop muted>
+        <source src="sweet.mp3" type="audio/mp3" />
+        Your browser does not support the audio element.
+      </audio>
+      <h1 id="lyrics"></h1>
+      <img id="img" src="photo_6152111627693050437_y.jpg" alt="" />
+      <h1 id="greet">Happy Valentine's Day, Yang!</h1>
+    </div>
+
+    <script>
+      const lyrics = [
+        "Hi Love,",
+        "I made this for you",
+        "These past months have been full of ups and downs",
+        "And there are a lot of things I want to say",
+        "First thing I want to say is",
+        "I apologize",
+        "I'm sorry for everything, love :<",
+        "I'm sorry for making you feel unwanted",
+        "I'm sorry for making everything a big deal",
+        "I'm sorry for making you feel you're not enough",
+        "I'm sorry for everything (˘•̥⧿•̥˘ )♡♡",
+        "I'll do better",
+        "I'll be better (|||❛︵❛。)",
+        "Second thing I want to say is",
+        "I'm proud of you",
+        "I know how hard you're trying to achieve your goals",
+        "I know you're going through shit",
+        "And I know that you're not giving up",
+        "Pera nala ka months!",
+        "Buyag buyag",
+        "You'll get through this",
+        "I know you will",
+        "I'm proud of you ⸜(๑'ᵕ'๑)⸝",
+        "Always proud of you <3",
+        "Third thing I want to say",
+        "I wish you all the best",
+        "I wish you good health",
+        "I wish you safety",
+        "I wish you peace of mind",
+        "I wish and pray you achieve your dreams",
+        "If things get hard",
+        "Always remember na adi laak",
+        "I'll be your friend",
+        "I'll be your lover",
+        "I'll be your supporter",
+        "In sickness and in heal- ",
+        "Eme EHHEHE ",
+        "Kidding aside",
+        "I'll always be here, my love",
+        "for you  (⸝⸝◜o◝⸝⸝)",
+        "Happyy Valentines, kyoety!",
+        "Enjoy the rest of the day",
+        "I love youuu <333",
+      ];
+
+      const lyricsElement = document.getElementById("lyrics");
+      const img = document.getElementById("img");
+      const greet = document.getElementById("greet");
+      let index = 0;
+      let lyricsInterval;
+      let isPlaying = false; // Declare isPlaying
+      function updateLyrics() {
+        if (index < lyrics.length) {
+          lyricsElement.innerHTML = lyrics[index];
+          index = index + 1;
+          console.log(index);
+        } else {
+          clearInterval(lyricsInterval);
+          lyricsElement.style.display = "none";
+          img.style.display = "block";
+          greet.style.display = "block";
+        }
+      }
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const audio = document.getElementById("myAudio");
+        const playButton = document.getElementById("playButton");
+
+        playButton.addEventListener("click", function () {
+          if (!isPlaying) {
+            audio.muted = false;
+            audio.play().catch(function (error) {
+              console.error("Play failed:", error);
+            });
+            playButton.style.display = "none";
+
+            setTimeout(function () {
+              updateLyrics();
+              lyricsInterval = setInterval(updateLyrics, 4000);
+            }, 1000);
+
+            isPlaying = true;
+          } else {
+            audio.pause();
+            playButton.style.display = "block";
+            clearInterval(lyricsInterval);
+            isPlaying = false;
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
